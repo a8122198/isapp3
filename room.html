@@ -47,6 +47,12 @@
             });
 
         async function show() {
+            var sql = `select * from Rooms where Id = ${roomId};`;
+            var objects = await osql.connect(sql);
+            var room = objects[0];
+            document.getElementById('topic-div').innerHTML = room.topic;
+
+
             var sql4 = `select * from Participation where roomId = ${roomId};`;
             var objects4 = await osql.connect(sql4);
             var html = '';
@@ -95,10 +101,12 @@
     <hr>
     <div>
         <input id="topic" type="text">
+
         <button onclick="newTopic()">new topic</button>
         <button onclick="start()">start</button>
     </div>
 
+    <div>Topic:<span id="topic-div"></span></div>
     <br>
     <div id="comments"></div>
 </body>
