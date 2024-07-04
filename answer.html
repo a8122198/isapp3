@@ -4,22 +4,48 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/osql.js"></script>
+
+    <script>
+        osql.requireLogin();
+
+        var me;
+        var roomId = osql.getParam('roomId');
+
+        $(document).ready(
+            async function () {
+                me = await osql.getMe();
+
+            });
+
+        async function answer() {
+            var answer = document.getElementById('answer').value;
+            var sql = `select * from Participation where roomid = ${roomId} AND userid = ${me.id};`;
+            var objects = await osql.connect(sql);
+            var objects = objects[0];
+
+            var sql2 = `insert into Answers (pid, turn,content) values ('${objects.Id}', '${objects.number}','${answer}');`;
+
+        }
+
+
+
+    </script>
+
 </head>
 
 <body>
-    <h1>複数でのgit操作　練習用ファイル</h1>
-    <h2>くだもの</h2>
-    <ul>
-        <li>りんご</li>
-    </ul>
-    <h2>のりもの</h2>
-    <ul>
-        <li>くるま</li>
-    </ul>
-    <h2>かぐ</h2>
-    <ul>
-        <li>たんす</li>
-    </ul>
+    <h1>答えは？</h1>
+    <div>
+        <input id="answer" type="text">
+        <button onclick="answer()">答える</button>
+        <div id="result"></div>
+        <div id="comments"></div>
+
+
+    </div>
 </body>
 
 </html>

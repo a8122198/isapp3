@@ -79,15 +79,15 @@
         }
 
         async function start() {
-            var sql = `select * from Participation where userid = '${me.id}' AND roomid = '${roomId}';`;
-            var objects = await osql.connect(sql);
-            var object = objects[0];
-            if (object.number == 1) {
-                window.location.href = `answer.html`;
-            }
-            else {
-                window.location.href = `wait.html`;
-            }
+            // var sql = `select * from Participation where userid = '${me.id}' AND roomid = '${roomId}';`;
+            // var objects = await osql.connect(sql);
+            //var object = objects[0];
+            //if (object.number == 1) {
+            window.location.href = `answer.html?roomId=${roomId}`;
+            //}
+            //else {
+            //  window.location.href = `wait.html`;
+            //}
         }
         //async function randomOrder() {
         //    var sql2 = `select * from Participation where roomId = ${roomId};`;
@@ -132,7 +132,7 @@
         <button onclick="start()">start</button>
         <button onclick="randomOrder()">RandomOrder</button>
     </div>
-
+    1
     <div>Topic:<span id="topic-div"></span></div>
     <br>
     <div id="comments"></div>
