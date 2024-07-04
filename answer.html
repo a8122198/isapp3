@@ -34,7 +34,7 @@
             });
 
         async function show() {
-            var sql4 = `select * from Answer ;`;
+            var sql4 = `select * from Answer where roomid = ${roomId};`;
             var objects4 = await osql.connect(sql4);
             var html = '';
             html = html + '<table border="1">';
@@ -57,7 +57,7 @@
             var objects = await osql.connect(sql);
             console.log(objects);
             var parti = objects[0];
-            var sql2 = `insert into Answer (pid, turn, content) values ('${parti.Id}', '${parti.number}','${answer}');`;
+            var sql2 = `insert into Answer (pid, turn, content) values ('${roomId}', '${parti.number}','${answer}');`;
             var objects2 = await osql.connectInsert(sql2);
 
 
