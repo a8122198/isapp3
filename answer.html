@@ -34,7 +34,7 @@
             });
 
         async function show() {
-            var sql4 = `select * from Answer;`;
+            var sql4 = `select * from Answer ;`;
             var objects4 = await osql.connect(sql4);
             var html = '';
             html = html + '<table border="1">';
@@ -48,6 +48,8 @@
             }
             html = html + '</table>';
             document.getElementById('comments').innerHTML = html;
+            var AnswerTurn = objects4.length + 1;
+            document.getElementById('turn').innerHTML = AnswerTurn;
         }
         async function answer() {
             var answer = document.getElementById('answer').value;
@@ -68,6 +70,7 @@
 
 <body>
     <h1>答えは？</h1>
+    <div id="turn"></div>
     <div>
         <input id="answer" type="text">
         <button onclick="answer()">答える</button>
