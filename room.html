@@ -11,8 +11,8 @@
     <script>
         osql.requireLogin();
 
-        var me;
-        var roomId = osql.getParam('roomId');
+        varme;
+        varroomId = osql.getParam('roomId');
 
         $(document).ready(
             async function () {
@@ -20,44 +20,64 @@
                 document.getElementById('firstname').innerHTML = me.fname;
                 document.getElementById('lastname').innerHTML = me.lname;
 
-                var sql = `select * from Rooms where id = ${roomId};`;
+                var sql = `select * from Rooms where Id = ${roomId};`;
                 var objects = await osql.connect(sql);
+
+                var sql2 = `select * from Participation where roomId = ${roomId};`;
+                var objects2 = await osql.connect(sql2);
+                var length = objects2.length + 1;
+                console.log(length);
+                var hitori = 0;
+                for (vari = 0; i < objects2.length; i++) {
+                    var object = objects2[i];
+                    if (object.userid == me.id) {
+                        hitori = 1;
+                    }
+                }
+                if (hitori == 0) {
+                    var sql3 = `insert into Participation (userid, roomid, number) values ('${me.id}', '${roomId}','${length}');`;
+                    var objects3 = await osql.connectInsert(sql3);
+                }
 
                 var room = objects[0];
                 document.getElementById('roomname').innerHTML = room.name;
 
-                await refreshComments();
-                setInterval(refreshComments, 2000);
+                var sql4 = `select * from Participation where roomId = ${roomId};`;
+                var objects4 = await osql.connect(sql4);
+                var html = '';
+                html = html + '<table border="1">';
+                for (vari = 0; i < objects4.length; i++) {
+                    html = html + '<tr>';
+                    var object = objects4[i];
+                    html = html + `<td>${object.userid}</td>`;
+                    html = html + '</tr>';
+                }
+                html = html + '</table>';
+                document.getElementById('comments').innerHTML = html;
+
             });
 
-        async function newComment() {
-            var name = document.getElementById('comment').value;
-            var sql = `insert into Comments (roomId, userId, comment, time) values(${roomId}, '${me.id}','${name}', now());`;
-            var commentId = await osql.connectInsert(sql);
+        async function newTopic() {
+            var name = document.getElementById('topic').value;
+            var sql = `update Rooms set topic = '${name}' where Id = '${roomId}';`;
+            await osql.connect(sql);
+            // var sql = `insert into Comments (roomId, userId, comment, time) values(${roomId}, '${me.id}','${name}', now());`;
+            //var commentId = await osql.connectInsert(sql);
             console.log(commentId);
 
-            await refreshComments();
         }
 
-        async function refreshComments() {
-            var sql = `select * from Comments where roomId = ${roomId} order by time desc limit 10;`;
+        async function start() {
+            var sql = `select * from Participation where userid = '${me.id}' AND roomid = '${roomId}';`;
             var objects = await osql.connect(sql);
-            console.log(objects);
-            var html = '';
-            html = html + '<table border="1">';
-            for (var i = 0; i < objects.length; i++) {
-                html = html + '<tr>';
-                var object = objects[i];
-                html = html + `<td>${object.id}</td>`;
-                html = html + `<td>${object.time}</td>`;
-                html = html + `<td>${object.userId}</td>`;
-                html = html + `<td>${object.comment}</td>`;
-                html = html + '</tr>';
+            var object = objects[0];
+            if (object.number == 1) {
+                window.location.href = `answer.html`;
             }
-            html = html + '</table>';
-            document.getElementById('comments').innerHTML = html;
+            else {
+                window.location.href = `wait.html`;
+            }
         }
-
     </script>
 
 </head>
