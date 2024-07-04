@@ -22,11 +22,12 @@
 
         async function answer() {
             var answer = document.getElementById('answer').value;
-            var sql = `select * from Participation where roomid = ${roomId} AND userid = ${me.id};`;
+            var sql = `select * from Participation where roomid = '${roomId}' AND userid = '${me.id}';`;
             var objects = await osql.connect(sql);
-            var objects = objects[0];
-
-            var sql2 = `insert into Answers (pid, turn,content) values ('${objects.Id}', '${objects.number}','${answer}');`;
+            console.log(objects);
+            var parti = objects[0];
+            var sql2 = `insert into Answer (pid, turn, content) values ('${parti.Id}', '${parti.number}','${answer}');`;
+            var objects2 = await osql.connectInsert(sql2);
 
         }
 
