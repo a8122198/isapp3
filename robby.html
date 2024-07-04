@@ -11,7 +11,7 @@
     <script>
         osql.requireLogin();
 
-        varme;
+        var me;
 
         $(document).ready(
             async function () {
@@ -38,7 +38,7 @@
             console.log(objects);
             var html = '';
             html = html + '<table border="1">';
-            for (vari = 0; i < objects.length; i++) {
+            for (var i = 0; i < objects.length; i++) {
                 html = html + '<tr>';
                 var object = objects[i];
                 html = html + `<td>${object.Id}</td>`;

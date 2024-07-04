@@ -11,8 +11,8 @@
     <script>
         osql.requireLogin();
 
-        varme;
-        varroomId = osql.getParam('roomId');
+        var me;
+        var roomId = osql.getParam('roomId');
 
         $(document).ready(
             async function () {
@@ -28,7 +28,7 @@
                 var length = objects2.length + 1;
                 console.log(length);
                 var hitori = 0;
-                for (vari = 0; i < objects2.length; i++) {
+                for (var i = 0; i < objects2.length; i++) {
                     var object = objects2[i];
                     if (object.userid == me.id) {
                         hitori = 1;
@@ -42,20 +42,24 @@
                 var room = objects[0];
                 document.getElementById('roomname').innerHTML = room.name;
 
-                var sql4 = `select * from Participation where roomId = ${roomId};`;
-                var objects4 = await osql.connect(sql4);
-                var html = '';
-                html = html + '<table border="1">';
-                for (vari = 0; i < objects4.length; i++) {
-                    html = html + '<tr>';
-                    var object = objects4[i];
-                    html = html + `<td>${object.userid}</td>`;
-                    html = html + '</tr>';
-                }
-                html = html + '</table>';
-                document.getElementById('comments').innerHTML = html;
-
+                await show();
+                setInterval(show, 2000);
             });
+
+        async function show() {
+            var sql4 = `select * from Participation where roomId = ${roomId};`;
+            var objects4 = await osql.connect(sql4);
+            var html = '';
+            html = html + '<table border="1">';
+            for (var i = 0; i < objects4.length; i++) {
+                html = html + '<tr>';
+                var object = objects4[i];
+                html = html + `<td>${object.userid}</td>`;
+                html = html + '</tr>';
+            }
+            html = html + '</table>';
+            document.getElementById('comments').innerHTML = html;
+        }
 
         async function newTopic() {
             var name = document.getElementById('topic').value;
@@ -63,7 +67,7 @@
             await osql.connect(sql);
             // var sql = `insert into Comments (roomId, userId, comment, time) values(${roomId}, '${me.id}','${name}', now());`;
             //var commentId = await osql.connectInsert(sql);
-            console.log(commentId);
+            //console.log(commentId);
 
         }
 
