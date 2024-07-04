@@ -89,6 +89,20 @@
                 window.location.href = `wait.html`;
             }
         }
+        async function randomOrder() {
+            var sql2 = `select * from Participation where roomId = ${roomId};`;
+            var objects2 = await osql.connect(sql2);
+            var randomNumber = 0;
+            for (var i = 0; i < objects2.length; i++) {
+                for (var j = 0; j < objects2.length; j++) {
+
+                    var order = Math.floor(Math.random() * object2.length);
+                    //if (order == )
+                    var sql = `update Rooms set topic = '${name}' where Id = '${roomId}';`;
+                    await osql.connect(sql);
+                }
+            }
+        }
     </script>
 
 </head>
@@ -105,6 +119,7 @@
 
         <button onclick="newTopic()">new topic</button>
         <button onclick="start()">start</button>
+        <button onclick="randomOrder()">RandomOrder</button>
     </div>
 
     <div>Topic:<span id="topic-div"></span></div>
