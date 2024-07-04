@@ -20,14 +20,14 @@
                 var sql = `select * from Participation where roomid = '${roomId}';`;
                 var objects = await osql.connect(sql);
                 var parti = objects[0];
-                if (parti.number == 1) {
+                // if (parti.number == 1) {
 
-                    var sql2 = `update Participation set number = 2 where roomid = '${roomId}' AND userid = '${me.id}';`;
-                    var objects2 = await osql.connect(sql2);
-                } else {
-                    var sql2 = `update Participation set number = 1 where roomid = '${roomId}' AND userid = '${me.id}';`;
-                    var objects2 = await osql.connect(sql2);
-                }
+                //    // var sql2 = `update Participation set number = 2 where roomid = '${roomId}' AND userid = '${me.id}';`;
+                //     //var objects2 = await osql.connect(sql2);
+                // } else {
+                //     //var sql2 = `update Participation set number = 1 where roomid = '${roomId}' AND userid = '${me.id}';`;
+                //     //svar objects2 = await osql.connect(sql2);
+                // }
 
                 await show();
                 setInterval(show, 2000);

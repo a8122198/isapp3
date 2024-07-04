@@ -20,10 +20,10 @@
                 document.getElementById('firstname').innerHTML = me.fname;
                 document.getElementById('lastname').innerHTML = me.lname;
 
-                var sql = `select * from Rooms where Id = ${roomId};`;
+                var sql = `select * from Rooms where Id = '${roomId}';`;
                 var objects = await osql.connect(sql);
 
-                var sql2 = `select * from Participation where roomId = ${roomId};`;
+                var sql2 = `select * from Participation where roomId = '${roomId}';`;
                 var objects2 = await osql.connect(sql2);
                 var length = objects2.length + 1;
                 console.log(length);
