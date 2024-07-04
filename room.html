@@ -89,31 +89,31 @@
                 window.location.href = `wait.html`;
             }
         }
-        async function randomOrder() {
-            var sql2 = `select * from Participation where roomId = ${roomId};`;
-            var objects2 = await osql.connect(sql2);
-            var randomNumber = 0;
-            var list = [];
-            for (var i = 0; i < objects2.length; i++) {
-                for (var j = 0; j < 1; j++) {
-                    randomNumber = Math.floor(Math.random() * object2.length);
-                    for (var k = 0; k <= list.length; k++) {
-                        if (list[k] == randomNumber) {
-                            j = j + 1;
-                            break;
-                        }
-                        else if (k == list.length) {
-                            list.push(randomNumber);
-                            break;
-                        }
-                    }
+        //async function randomOrder() {
+        //    var sql2 = `select * from Participation where roomId = ${roomId};`;
+        //    var objects2 = await osql.connect(sql2);
+        //    var randomNumber = 0;
+        //    var list = [];
+        // for (var i = 0; i < objects2.length; i++) {
+        //     for (var j = 0; j < 1; j++) {
+        //         randomNumber = Math.floor(Math.random() * object2.length);
+        //         for (var k = 0; k <= list.length; k++) {
+        //             if (list[k] == randomNumber) {
+        //                 j = j + 1;
+        //                 break;
+        //             }
+        //             else if (k == list.length) {
+        //                 list.push(randomNumber);
+        //                 break;
+        //             }
+        //         }
 
-                    if (randomNumber == )
-                        var sql = `update Rooms set topic = '${name}' where Id = '${roomId}';`;
-                    await osql.connect(sql);
-                }
-            }
-        }
+        //         if (randomNumber == )
+        //             var sql = `update Rooms set topic = '${name}' where Id = '${roomId}';`;
+        //         await osql.connect(sql);
+        //     }
+        // }
+        // }
     </script>
 
 </head>
